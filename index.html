@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple 2D Dress-Up Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Simple 2D Dress-Up Game</h1>
+
+    <div id="game">
+        <!-- CHARACTER AREA (drop target for drag & drop) -->
+        <div id="character-area">
+            <div id="character"
+                 ondragover="allowDrop(event)"
+                 ondrop="dropItem(event)">
+                <!-- BACK → FRONT -->
+                <img id="layer-body"        src="assets/body_skin01.png" alt="body">
+
+                <img id="layer-hair-back"   src="assets/hair_back01.png" alt="hair back">
+
+                <img id="layer-underwear-bottom"  src="assets/underwear_bottom01.png" alt="underwear bottom">
+                <img id="layer-bottom"      src="" alt="bottom">
+		<img id="layer-socks"       src="" alt="socks">
+                <img id="layer-shoes"       src="" alt="shoes">
+
+                <img id="layer-underwear-top"     src="assets/underwear_top01.png" alt="underwear top">
+                <img id="layer-top"         src="" alt="top">
+                <img id="layer-accessory"   src="" alt="accessory">
+
+                <!-- FACE -->
+                <img id="layer-lids"        src="assets/eyelids01.png"     alt="eyelids">
+                <img id="layer-eyes"        src="assets/eyes01.png"        alt="eyes">
+		<img id="layer-eyelids"     src="assets/eyelids01_open_skin01.png" alt="eyelids">
+                <img id="layer-eyebrows"    src="assets/eyebrows01.png"    alt="eyebrows">
+                <img id="layer-mouth"       src="assets/mouth01.png"       alt="mouth">
+                <img id="layer-cheeks"      src="assets/cheeks01.png"      alt="cheeks">
+                <img id="layer-nose"        src="assets/nose01.png"        alt="nose">
+
+                <!-- FRONT HAIR -->
+                <img id="layer-hair-front"  src="assets/hair_front01.png"  alt="hair front">
+            </div>
+        </div>
+
+        <!-- CONTROL PANEL -->
+        <div id="items-panel">
+            <h2>Customize</h2>
+
+            <!-- SKIN -->
+<div class="item-group">
+    <h3>Skin Colour</h3>
+    <button onclick="changeSkin('skin01')">Skin 01</button>
+    <button onclick="changeSkin('skin02')">Skin 02</button>
+    <button onclick="changeSkin('skin03')">Skin 03</button>
+</div>
+
+            <!-- FACE -->
+            <div class="item-group">
+                <h3>Eyes</h3>
+                <button onclick="equipItem('eyes', 'assets/eyes01.png')">Eyes 01</button>
+                <button onclick="equipItem('eyes', 'assets/eyes02.png')">Eyes 02</button>
+            </div>
+	
+<div class="item-group">
+    <h3>Eyelid Style</h3>
+    <button onclick="changeEyelidStyle('style01')">Style01</button>
+    <button onclick="changeEyelidStyle('style02')">Style02</button>
+    <!-- add more styles as you create them -->
+</div>
+
+            <div class="item-group">
+                <h3>Eyebrows</h3>
+                <button onclick="equipItem('eyebrows', 'assets/eyebrows01.png')">Brows 01</button>
+                <button onclick="equipItem('eyebrows', 'assets/eyebrows02.png')">Brows 02</button>
+            </div>
+
+            <div class="item-group">
+                <h3>Mouth</h3>
+                <button onclick="equipItem('mouth', 'assets/mouth01.png')">Mouth 01</button>
+                <button onclick="equipItem('mouth', 'assets/mouth02.png')">Mouth 02</button>
+            </div>
+
+            <div class="item-group">
+                <h3>Nose</h3>
+                <button onclick="equipItem('nose', 'assets/nose01.png')">nose 01</button>
+                <button onclick="equipItem('nose', 'assets/nose02.png')">nose 02</button>
+            </div>
+
+            <div class="item-group">
+                <h3>Cheeks</h3>
+                <button onclick="equipItem('cheeks', 'assets/cheeks01.png')">Blush</button>
+                <button onclick="equipItem('cheeks', '')">No Blush</button>
+            </div>
+
+            <div class="item-group">
+                <h3>Eyelid Pose</h3>
+                <button onclick="setEyelidState('open')">Open</button>
+                <button onclick="setEyelidState('half')">Sleepy</button>
+                <button onclick="setEyelidState('closed')">Closed</button>
+            </div>
+
+            <!-- HAIR -->
+            <div class="item-group">
+                <h3>Hair (Front)</h3>
+                <div id="hair-front-container"></div>
+            </div>
+
+
+            <div class="item-group">
+                <h3>Hair (Back)</h3>
+                <div id="hair-back-container"></div>
+            </div>
+
+
+            <!-- CLOTHES -->
+                        <div class="item-group">
+                            <h3>Top</h3>
+                            <div id="tops-container"></div>
+                        </div>
+
+                        <div class="item-group">
+                           <h3>Bottom</h3>
+                           <div id="bottoms-container"></div>
+                        </div>
+
+            <div class="item-group">
+                <h3>Socks</h3>
+                <div id="socks-container"></div>
+            </div>
+
+            <div class="item-group">
+                <h3>Shoes</h3>
+                <div id="shoes-container"></div>
+            </div>
+
+            <div class="item-group">
+                <h3>Accessory</h3>
+                <img class="item-icon"
+                     src="assets/accessory_ears01.png"
+                     draggable="true"
+                     onclick="equipItem('accessory', 'assets/accessory_ears01.png')"
+                     ondragstart="startDrag(event, 'accessory', 'assets/accessory_ears01.png')">
+                <img class="item-icon"
+                     src="assets/accessory_ears02.png"
+                     draggable="true"
+                     onclick="equipItem('accessory', 'assets/aaccessory_ears02.png')"
+                     ondragstart="startDrag(event, 'accessory', 'assets/accessory_ears02.png')">
+                <img class="item-icon"
+                     src="assets/accessory_glasses01.png"
+                     draggable="true"
+                     onclick="equipItem('accessory', 'assets/accessory_glasses01.png')"
+                     ondragstart="startDrag(event, 'accessory', 'assets/accessory_glasses01.png')">
+                <img class="item-icon"
+                     src="assets/accessory_hair01.png"
+                     draggable="true"
+                     onclick="equipItem('accessory', 'assets/accessory_hair01.png')"
+                     ondragstart="startDrag(event, 'accessory', 'assets/accessory_hair01.png')">
+                <img class="item-icon"
+                     src="assets/accessory_hair02.png"
+                     draggable="true"
+                     onclick="equipItem('accessory', 'assets/accessory_hair02.png')"
+                     ondragstart="startDrag(event, 'accessory', 'assets/accessory_hair02.png')">
+                <img class="item-icon"
+                     src="assets/accessory_hair03.png"
+                     draggable="true"
+                     onclick="equipItem('accessory', 'assets/accessory_hair03.png')"
+                     ondragstart="startDrag(event, 'accessory', 'assets/accessory_hair03.png')">
+                <img class="item-icon"
+                     src="assets/accessory_hair04.png"
+                     draggable="true"
+                     onclick="equipItem('accessory', 'assets/accessory_hair04.png')"
+                     ondragstart="startDrag(event, 'accessory', 'assets/accessory_hair04.png')">
+                <button onclick="equipItem('accessory', '')">No Accessory</button>
+            </div>
+
+            <!-- COLOUR SLIDERS -->
+            <div class="item-group">
+                <h3>Hair Colour (Hue)</h3>
+                <input type="range" min="0" max="360" value="0"
+                       oninput="updateHairHue(this.value)">
+            </div>
+
+            <div class="item-group">
+                <h3>Top Colour (Hue)</h3>
+                <input type="range" min="0" max="360" value="0"
+                       oninput="updateTopHue(this.value)">
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="item-group">
+                <h3>Actions</h3>
+                <button onclick="clearClothes()">Clear Clothes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

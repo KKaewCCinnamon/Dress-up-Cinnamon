@@ -1,0 +1,143 @@
+:root {
+    --hair-hue: 0deg;
+    --top-hue: 0deg;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5ff;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Layout */
+#game {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+/* Character area */
+#character-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Idle breathing animation */
+@keyframes breathe {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-4px); }
+}
+
+#character {
+    position: relative;
+    width: 500px;   /* adjust to your art */
+    height: 500px;
+    animation: breathe 3s ease-in-out infinite;
+}
+
+#character img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+}
+
+/* Layer order (back → front) */
+#layer-hair-back   { z-index: 0; }
+#layer-body        { z-index: 1; }  /* skin */
+
+
+#layer-underwear-bottom { z-index: 2; }
+#layer-socks       { z-index: 3; }
+#layer-bottom      { z-index: 4; }
+#layer-shoes       { z-index: 5; }
+
+#layer-underwear-top    { z-index: 6; }
+#layer-top         { z-index: 7; }
+
+#layer-eyes        { z-index: 8; }
+#layer-lids        { z-index: 9; }
+#layer-eyelids     { z-index: 10; }
+#layer-eyebrows    { z-index: 11; }
+#layer-mouth       { z-index: 12; }
+#layer-cheeks      { z-index: 13; }
+#layer-nose        { z-index: 14; }
+ 
+#layer-hair-front  { z-index: 15; }
+
+#layer-accessory   { z-index: 16; }
+
+
+/* Recolour effects using CSS filters */
+#layer-hair-front,
+#layer-hair-back {
+    filter: hue-rotate(var(--hair-hue));
+}
+
+#layer-top {
+    filter: hue-rotate(var(--top-hue));
+}
+
+/* Panel */
+#items-panel {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    min-width: 280px;
+}
+
+#items-panel h2 {
+    margin-top: 0;
+}
+
+.item-group {
+    margin-bottom: 16px;
+}
+
+.item-group h3 {
+    margin: 4px 0 8px;
+    font-size: 14px;
+}
+
+/* Buttons */
+button {
+    padding: 6px 9px;
+    margin: 3px 3px 3px 0;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #b2c7ff;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+button:hover {
+    background: #8fa9ff;
+}
+
+/* Item icons for drag & drop */
+.item-icon {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-right: 4px;
+    cursor: grab;
+    background: #f7f7ff;
+}
+
+.item-icon:active {
+    cursor: grabbing;
+}
