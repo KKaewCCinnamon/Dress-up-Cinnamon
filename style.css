@@ -1,10 +1,46 @@
+/* menu pages */
+.menu-page {
+    display: none;
+}
+
+.menu-page.active {
+    display: block;
+}
+
+/* simple nav bar */
+#menu-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+#menu-nav button {
+    padding: 2px 8px;
+    font-size: 0.8rem;
+}
+
+#menu-page-indicator {
+    font-size: 0.8rem;
+    color: #555;
+}
+
 :root {
     --hair-hue: 0deg;
+    --hair-sat: 100%;
+
     --top-hue: 0deg;
+
+    --eyes-hue: 0deg;
+    --eyes-sat: 100%;
+
+    --bottom-hue: 0deg;
+
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Nunito, sans-serif;
     background: #f5f5ff;
     margin: 0;
     padding: 20px;
@@ -20,14 +56,12 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 40px;
+    gap: 2rem;
 }
 
 /* Character area */
 #character-area {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 auto;
 }
 
 /* Idle breathing animation */
@@ -81,20 +115,29 @@ h1 {
 /* Recolour effects using CSS filters */
 #layer-hair-front,
 #layer-hair-back {
-    filter: hue-rotate(var(--hair-hue));
+    filter: hue-rotate(var(--hair-hue)) saturate(var(--hair-sat));
 }
 
 #layer-top {
     filter: hue-rotate(var(--top-hue));
 }
 
+#layer-eyes {
+    filter: hue-rotate(var(--eyes-hue)) saturate(var(--eyes-sat));
+}
+
+#layer-bottom {
+    filter: hue-rotate(var(--bottom-hue));
+}
+
 /* Panel */
 #items-panel {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    min-width: 280px;
+    flex: 1 1 auto;
+    max-width: 800px;
+    background: #ffffff;
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.06);
 }
 
 #items-panel h2 {
@@ -102,28 +145,58 @@ h1 {
 }
 
 .item-group {
-    margin-bottom: 16px;
+    margin-bottom: 0.75rem;
 }
 
 .item-group h3 {
-    margin: 4px 0 8px;
-    font-size: 14px;
+    margin: 0 0 0.25rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.item-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.item-group button {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+}
+
+.item-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    padding: 2px;
+    background: #fafafa;
+}
+
+.item-group input[type="range"] {
+    width: 200px;
+    margin-top: 0.25rem;
 }
 
 /* Buttons */
 button {
+    font-family: 'Nunito', sans-serif;
     padding: 6px 9px;
     margin: 3px 3px 3px 0;
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    background: #b2c7ff;
-    font-weight: bold;
+    background: #f6c9d2;
+    font-weight: 600;
     font-size: 12px;
+    border-radius: 6px;
+
 }
 
 button:hover {
-    background: #8fa9ff;
+    background: #f6c9d2;
 }
 
 /* Item icons for drag & drop */

@@ -177,20 +177,14 @@ function updateTopHue(value) {
   document.documentElement.style.setProperty("--top-hue", deg);
 }
 
+function updateEyesHue(value) {
+  const deg = value + "deg";
+  document.documentElement.style.setProperty("--eyes-hue", deg);
+}
+
 // ===============================
 // INITIALIZE ON PAGE LOAD
 // ===============================
-
-window.addEventListener("load", () => {
-    generateHairFront();
-    generateHairBack();
-    generateTops();
-    generateBottoms(); 
-    generateSocks();
-    generateShoes();
-    document.getElementById("layer-eyelids").src = getEyelidPath("open");
-    scheduleBlink();
-});
 
 function generateHairFront() {
     const container = document.getElementById("hair-front-container");
@@ -214,7 +208,7 @@ function generateHairFront() {
 function generateHairBack() {
     const container = document.getElementById("hair-back-container");
 
-    for (let i = 1; i <= 9; i++) {                      
+    for (let i = 1; i <= 10; i++) {                      
         const num = String(i).padStart(2, '0');          
         const file = `assets/hair_back${num}.png`;       
 
@@ -233,7 +227,7 @@ function generateHairBack() {
 function generateTops() {
     const container = document.getElementById("tops-container");
     for (let i = 1; i <= 12; i++) {
-        const num = String(i).padStart(2, '0');  // 01, 02, 03...
+        const num = String(i).padStart(2, '0');
         const file = `assets/top${num}.png`;
 
         const img = document.createElement("img");
@@ -322,6 +316,77 @@ function generateShoes() {
     }
 }
 
+function clearTop() {
+    const topLayer = document.getElementById("layer-top");
+    if (topLayer) topLayer.src = "";
+    updateUnderwearVisibility();
+}
+
+function clearBottom() {
+    const bottomLayer = document.getElementById("layer-bottom");
+    if (bottomLayer) bottomLayer.src = "";
+    updateUnderwearVisibility();
+}
+
+function clearSocks() {
+    const socksLayer = document.getElementById("layer-socks");
+    if (socksLayer) socksLayer.src = "";
+}
+
+function clearShoes() {
+    const shoesLayer = document.getElementById("layer-shoes");
+    if (shoesLayer) shoesLayer.src = "";
+}
+
+function updateHairSaturation(value) {
+    document.documentElement.style.setProperty("--hair-sat", value + "%");
+}
+
+function updateEyesSaturation(value) {
+    document.documentElement.style.setProperty("--eyes-sat", value + "%");
+}
+
+// ============ MENU PAGE NAVIGATION ============
+
+const menuPages = [
+  "menu-page-1",
+  "menu-page-2",
+  "menu-page-3",
+  "menu-page-4",
+  "menu-page-5",
+  "menu-page-6"
+];
+
+let currentMenuPageIndex = 0;
+
+function showMenuPage(index) {
+  // clamp index
+  if (index < 0) index = 0;
+  if (index >= menuPages.length) index = menuPages.length - 1;
+  currentMenuPageIndex = index;
+
+  // hide all pages
+  menuPages.forEach((id, i) => {
+    const page = document.getElementById(id);
+    if (!page) return;
+    page.classList.toggle("active", i === index);
+  });
+
+  // update indicator text, e.g. "Page 1 / 4"
+  const indicator = document.getElementById("menu-page-indicator");
+  if (indicator) {
+    indicator.textContent = `Page ${index + 1} / ${menuPages.length}`;
+  }
+}
+
+function nextMenuPage() {
+  showMenuPage(currentMenuPageIndex + 1);
+}
+
+function prevMenuPage() {
+  showMenuPage(currentMenuPageIndex - 1);
+}
+
 
 window.addEventListener("load", () => {
     generateTops();
@@ -334,4 +399,7 @@ window.addEventListener("load", () => {
     updateUnderwearVisibility();
   document.getElementById("layer-eyelids").src = getEyelidPath("open");
   scheduleBlink();
+
+  showMenuPage(0);
+
 });
